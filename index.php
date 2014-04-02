@@ -43,7 +43,11 @@ if(isset($_POST[4])) $mybyte +=16;
 if(isset($_POST[5])) $mybyte +=32;
 if(isset($_POST[6])) $mybyte +=64;
 if(isset($_POST[7])) $mybyte +=128;
-echo "first byte is: ".dechex($mybyte);
+
+$mybyte<16 ? $prefix = "0" : $prefix = "";
+
+echo "first byte is: ".$prefix.dechex($mybyte);
+
 
 
 
