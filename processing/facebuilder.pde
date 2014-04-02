@@ -136,7 +136,17 @@ void keyPressed() {
     case 'R':
     setAll(false);
     break;
+    case 'i':
+    case 'I':
+    invertAll();
+    break;
   }
+}
+
+void invertAll(){
+  for (int i=0;i<numRows*numCols;i++) {
+     dots[i].isActive = !dots[i].isActive;
+    }
 }
 
 void setAll(boolean val){
