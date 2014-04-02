@@ -34,6 +34,7 @@ int numCols;
 int numRows;
 int dotRadius = 20;
 Dot[] dots;
+int bgcolor = 255;
 
 int dragState;
 // -1 : not dragging (mouse not down)
@@ -46,10 +47,9 @@ int prevNearDot;
 
 void setup() {
 
-if(javascript!=null) {
-		javascript.updateLog("gone full circle"); }
-  
-  //println("setup");
+
+ // println(javascript);
+
   size(640, 480);
   smooth();
   frameRate(60);
@@ -70,13 +70,14 @@ if(javascript!=null) {
   }
 }
 void draw() {
+  
   update();
 
 
   for (int i=0;i<numRows*numCols;i++) {
     dots[i].update();
   }
-  background(255);
+  background(bgcolor);
 
 
   // pushMatrix();
@@ -127,6 +128,7 @@ void keyPressed() {
     outputValues();
     break;
   }
+  
 }
 
 int nearestDot() {
@@ -161,10 +163,19 @@ void outputValues() {
     // println(val);
   }
 
+String bytes_str = "";
   for (int i=0;i<numRows;i++) {
     //output bytes here
     //println(bytes[i]);
-  }
+  bytes_str += bytes[i]+"\n";  
+}
+  if(javascript!=null) {
+    bgcolor = 0;
+		javascript.updateLog(bytes_str);
+} else {
+  bgcolor = 128;
+ println(bytes_str); 
+}
 }
 
 class Dot {
