@@ -1,0 +1,118 @@
+$checkbox-radius: 36px;
+$checkbox-bigradius: $checkbox-radius * 2 - 4px;
+$checkbox-labelaftersize: $checkbox-radius - 12px ;
+$checkbox-labelsize: $checkbox-radius - 8px;
+$marginsize: 2px;
+$formwidth: 8 * ($checkbox-radius) + 16 * $marginsize;
+
+$darkred: #940000;
+
+$lightgray:  #45484d;
+$darkgray: #222;
+$outertop: #3c3f34;
+$outermiddle: #1f1517;
+$outerbottom: #434e8d;
+
+
+
+body{
+	background-color:#000;
+	color:#fff;
+}
+form{
+	width:$formwidth;
+}
+input[type=checkbox] {
+	visibility: hidden;
+}
+.clear{
+	clear:both;
+}
+/* ROUNDED ONE */
+.roundedOne {
+float:left;
+display:block;
+	width: $checkbox-radius;
+	height: $checkbox-radius;
+	background: $outertop;
+
+	background: -webkit-linear-gradient(top, $outertop 0%, $outermiddle 40%, $outerbottom 100%);
+	background: -moz-linear-gradient(top, $outertop 0%, $outermiddle 40%, $outerbottom 100%);
+	background: -o-linear-gradient(top, $outertop 0%, $outermiddle 40%, $outerbottom 100%);
+	background: -ms-linear-gradient(top, $outertop 0%, $outermiddle 40%, $outerbottom 100%);
+	background: linear-gradient(top, $outertop 0%, $outermiddle 40%, $outerbottom 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='$outertop', endColorstr='$outerbottom',GradientType=0 );
+	margin: $marginsize;
+
+	-webkit-border-radius: $checkbox-bigradius;
+	-moz-border-radius: $checkbox-bigradius;
+	border-radius: $checkbox-bigradius;
+
+	-webkit-box-shadow: inset 0px 1px 1px white, 0px 1px 3px rgba(0,0,0,0.5);
+	-moz-box-shadow: inset 0px 1px 1px white, 0px 1px 3px rgba(0,0,0,0.5);
+	box-shadow: inset 0px 1px 1px white, 0px 1px 3px rgba(0,0,0,0.5);
+	position: relative;
+}
+
+.roundedOne label {
+	cursor: pointer;
+	position: absolute;
+	width: $checkbox-labelsize;
+	height: $checkbox-labelsize;
+
+	-webkit-border-radius: $checkbox-bigradius;
+	-moz-border-radius: $checkbox-bigradius;
+	border-radius: $checkbox-bigradius;
+	left: 4px;
+	top: 4px;
+
+	-webkit-box-shadow: inset 0px 1px 1px rgba(0,0,0,0.5), 0px 1px 0px rgba(255,255,255,1);
+	-moz-box-shadow: inset 0px 1px 1px rgba(0,0,0,0.5), 0px 1px 0px rgba(255,255,255,1);
+	box-shadow: inset 0px 1px 1px rgba(0,0,0,0.5), 0px 1px 0px rgba(255,255,255,1);
+
+	background: -webkit-linear-gradient(top, $darkgray 0%, $lightgray 100%);
+	background: -moz-linear-gradient(top, $darkgray 0%, $lightgray 100%);
+	background: -o-linear-gradient(top, $darkgray 0%, $lightgray 100%);
+	background: -ms-linear-gradient(top, $darkgray 0%, $lightgray 100%);
+	background: linear-gradient(top, $darkgray 0%, $lightgray 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='$darkgray', endColorstr='$lightgray',GradientType=0 );
+}
+
+.roundedOne label:after {
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+	filter: alpha(opacity=0);
+	opacity: 0;
+	content: '';
+	position: absolute;
+	width: $checkbox-labelaftersize;
+	height: $checkbox-labelaftersize;
+	background: #00bf00;
+
+	background: -webkit-linear-gradient(top, #bf0000 0%, $darkred 100%);
+	background: -moz-linear-gradient(top, #bf0000 0%, $darkred 100%);
+	background: -o-linear-gradient(top, #bf0000 0%, $darkred 100%);
+	background: -ms-linear-gradient(top, #bf0000 0%, $darkred 100%);
+	background: linear-gradient(top, #bf0000 0%, $darkred 100%);
+
+	-webkit-border-radius: $checkbox-bigradius;
+	-moz-border-radius: $checkbox-bigradius;
+	border-radius: $checkbox-bigradius;
+	top: 2px;
+	left: 2px;
+
+	-webkit-box-shadow: inset 0px 1px 1px white, 0px 1px 3px rgba(0,0,0,0.5);
+	-moz-box-shadow: inset 0px 1px 1px white, 0px 1px 3px rgba(0,0,0,0.5);
+	box-shadow: inset 0px 1px 1px white, 0px 1px 3px rgba(0,0,0,0.5);
+}
+
+.roundedOne label:hover::after {
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=30)";
+	filter: alpha(opacity=30);
+	opacity: 0.3;
+}
+
+.roundedOne input[type=checkbox]:checked + label:after {
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+	filter: alpha(opacity=100);
+	opacity: 1;
+}
