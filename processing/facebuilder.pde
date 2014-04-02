@@ -31,7 +31,7 @@ int numCols;
 int numRows;
 int dotRadius = 20;
 Dot[] dots;
-int bgcolor = 255;
+int bgcolor = 0;
 
 int dragState;
 // -1 : not dragging (mouse not down)
@@ -92,6 +92,9 @@ void draw() {
     noFill();
     line(mouseX, mouseY, dots[nearDot].x, dots[nearDot].y);
   }
+    for (int i=0;i<numRows*numCols;i++) {
+    dots[i].drawFlash();
+  }
 }
 
 void update() {
@@ -108,12 +111,15 @@ void update() {
 }
 
 void mousePressed() {
-  if (dots[nearestDot()].isActive) {
+  int nearDot = nearestDot();
+  if(nearDot>-1){
+  if (dots[nearDot].isActive) {
     dragState = 0;
     //println("erasing");
   } 
   else {
     dragState = 1;
+  }
   }
   //if(javascript!=null) javascript.logToConsole("hello, world!");
 }
@@ -126,7 +132,18 @@ void keyPressed() {
   case 'P':
     outputValues();
     break;
+    case 'r':
+    case 'R':
+    setAll(false);
+    break;
   }
+}
+
+void setAll(boolean val){
+  
+  for (int i=0;i<numRows*numCols;i++) {
+     dots[i].isActive = (val);
+    }
 }
 
 int nearestDot() {
@@ -193,22 +210,34 @@ class Dot {
     curBrightness += (destBrightness-curBrightness)/8.0;
   }
   void draw() {
-    //if (isActive) {
-    //  noStroke();
-    //  fill(0);
-    //} 
-    //else {
+// off state
     stroke(0);
-    fill(255);
-
+    fill(32);
     //}
-    ellipse(x, y, r, r);
+    ellipse(x, y, r+2, r+2);
     noStroke();
-    fill(0);
+    fill(255,0,0);
     ellipse(x, y, (r)*curBrightness, (r)*curBrightness);
+    fill(255,32,16);
+
+    ellipse(x-2, y-2, (r/4)*curBrightness, (r/4)*curBrightness);
   }
   boolean getActive() {
     return isActive;
+  }
+  void drawFlash(){
+   if(curBrightness>0.01 && curBrightness < 0.99 && curBrightness<destBrightness){
+      noStroke();
+      fill(255,255,255,32*(1.0-curBrightness));
+      float flashR = (1.0-curBrightness)*50.0*r;
+      ellipse(x,y,flashR,flashR);
+   } 
+   fill(255,0,0,128);
+   noStroke();
+   ellipse(x, y, (r)*curBrightness*1.2, (r)*curBrightness*1.2);
+   fill(255,0,0,64);
+
+   ellipse(x, y, (r)*curBrightness*1.4, (r)*curBrightness*1.4);
   }
 }
 
