@@ -1,3 +1,7 @@
+/*
+ * facebuilder v0.1
+ */
+ 
 Dot e;
 int pageMargin = 20;
 int margin;
@@ -18,24 +22,25 @@ void setup() {
     dots[i] = new Dot();
     int colNum = i%numCols;
     int rowNum = i/numCols;
-    dots[i].x = colNum*dotRadius + colNum*margin; 
-    dots[i].y = rowNum*dotRadius+rowNum*margin;
+    dots[i].x = colNum*dotRadius + colNum*margin+pageMargin; 
+    dots[i].y = rowNum*dotRadius+rowNum*margin+pageMargin;
     dots[i].r = dotRadius;
   }
 }
 void draw() {
   update();
 
+background(255);
   for (int i=0;i<numRows*numCols;i++) {
     dots[i].update();
   }
 
-  pushMatrix();
-  translate(pageMargin, pageMargin);
+ // pushMatrix();
+ // translate(pageMargin, pageMargin);
   for (int i=0;i<numRows*numCols;i++) {
     dots[i].draw();
   }
-  popMatrix();
+ // popMatrix();
   
   int nearDot = nearestDot();
   if(nearDot>-1){
@@ -65,13 +70,20 @@ int nearestDot(){
 
 class Dot {
   float x, y, r;
+  boolean isActive;
   void setup() {
+    isActive = false;
   }
   void update() {
   }
   void draw() {
-    noStroke();
-    fill(255);
+    if(isActive){
+          noStroke();
+    fill(0);
+    } else {
+stroke(0);
+fill(255);
+    }
     ellipse(x, y, r, r);
   }
 }
