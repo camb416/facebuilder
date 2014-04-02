@@ -14,3 +14,5 @@ facebuilder
 
 ##TODO
 - figure out microcontroller selection
+	- preferrably with usb-serial on-board
+- C1 needs a 0.2" pitch on the BRD
