@@ -13,7 +13,7 @@
 interface JavaScript
 {	
 	void updateLog(String text);
-	void setBorderThickness(float thickness);
+	//void setBorderThickness(float thickness);
 }
 
 // -------------------------------------------

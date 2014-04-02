@@ -3,6 +3,7 @@
  */
 function updateLog(text) {
 	var e = document.getElementById('log');
+	console.log("updatelog called");
 	if(e) { e.innerHTML += text + "<br/>\n"; }}
 
 /**

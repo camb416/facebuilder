@@ -22,9 +22,11 @@ function loadSourceCode() {
 function loadPJS() {
 	loadSourceCode();
 	var canvas = document.getElementById(canvasid);
+
 	Processing.addInstance(new Processing(canvas, sourcecode));
 	pjs = Processing.getInstanceById(canvasid);
-	pjs.setJavaScript(this); }
+	pjs.setJavaScript(this);
+	 }
 
 setTimeout("loadPJS()", 1000);
 
