@@ -82,6 +82,7 @@ void update() {
 void mousePressed() {
   if (dots[nearestDot()].isActive) {
     dragState = 0;
+    println("erasing");
   } 
   else {
     dragState = 1;
@@ -147,6 +148,8 @@ class Dot {
   void update() {
     if (isActive) {
       destBrightness = 1.0;
+    } else {
+     destBrightness = 0.0; 
     }
     curBrightness += (destBrightness-curBrightness)/16.0;
   }
