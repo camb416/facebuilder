@@ -33,9 +33,9 @@ void setup() {
   for (int i=0;i<numRows*numCols;i++) {
     dots[i] = new Dot();
     int colNum = i%numCols;
-    int rowNum = i/numCols;
+    int rowNum = floor(i/numCols);
     dots[i].x = colNum*dotRadius + colNum*margin+pageMargin; 
-    dots[i].y = rowNum*dotRadius+rowNum*margin+pageMargin;
+    dots[i].y = rowNum*dotRadius + rowNum*margin+pageMargin;
     dots[i].r = dotRadius;
   }
 }
