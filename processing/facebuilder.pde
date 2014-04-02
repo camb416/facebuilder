@@ -50,7 +50,7 @@ void setup() {
 
  // println(javascript);
 
-  size(640, 480);
+  size(240, 240);
   smooth();
   frameRate(60);
   margin = 5;
