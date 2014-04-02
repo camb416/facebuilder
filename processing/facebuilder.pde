@@ -91,7 +91,6 @@ void mouseReleased() {
   dragState = -1;
 }
 void keyPressed() {
-  print(key);
   switch(key) {
   case 'p':
   case 'P':
@@ -101,7 +100,7 @@ void keyPressed() {
 }
 
 int nearestDot() {
-  float nearestVal = 9999;
+  float nearestVal = margin+dotRadius;
   int nearestDot = -1;
   for (int i=0;i<numRows*numCols;i++) {
     float thisDist = dist(mouseX, mouseY, dots[i].x, dots[i].y);
@@ -115,46 +114,56 @@ int nearestDot() {
 
 void outputValues() {
   int[] bytes = new int[numRows];
-  
+
   for (int i=0;i<numRows;i++) {
     bytes[i] = 0;
     int val = 0;
     for (int j=0;j<numCols;j++) {
       if (dots[i*numCols+j].getActive()) {
         //print("1");
-        bytes[i] += pow(2,j);
+        bytes[i] += pow(2, j);
       } 
       else {
-      //  print("0");
+        //  print("0");
       }
     }
     //println("");
-   // println(val);
+    // println(val);
   }
-  println("");
-  for(int i=0;i<numRows;i++){
-   println(bytes[i]); 
+
+  for (int i=0;i<numRows;i++) {
+    println(bytes[i]);
   }
 }
 
 class Dot {
   float x, y, r;
+  float curBrightness = 0.0;
+  float destBrightness = 0.0f;
   boolean isActive;
   void setup() {
     isActive = false;
   }
   void update() {
+    if (isActive) {
+      destBrightness = 1.0;
+    }
+    curBrightness += (destBrightness-curBrightness)/16.0;
   }
   void draw() {
-    if (isActive) {
-      noStroke();
-      fill(0);
-    } 
-    else {
-      stroke(0);
-      fill(255);
-    }
+    //if (isActive) {
+    //  noStroke();
+    //  fill(0);
+    //} 
+    //else {
+    stroke(0);
+    fill(255);
+
+    //}
     ellipse(x, y, r, r);
+    noStroke();
+    fill(0);
+    ellipse(x+0.5, y+0.5, (r)*curBrightness, (r)*curBrightness);
   }
   boolean getActive() {
     return isActive;
