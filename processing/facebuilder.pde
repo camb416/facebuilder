@@ -193,7 +193,7 @@ class Dot {
     else {
       destBrightness = 0.0;
     }
-    curBrightness += (destBrightness-curBrightness)/16.0;
+    curBrightness += (destBrightness-curBrightness)/8.0;
   }
   void draw() {
     //if (isActive) {
