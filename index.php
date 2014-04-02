@@ -32,6 +32,8 @@ echo '<br />';
 <?php var_dump($_POST ); ?>
 
 <?php 
+
+// refactor this to get each byte
 $mybyte = 0;
 if(isset($_POST[0])) $mybyte ++;
 if(isset($_POST[1])) $mybyte +=2;
