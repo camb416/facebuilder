@@ -1,7 +1,7 @@
 /*
  * facebuilder v0.1
  */
- 
+
 Dot e;
 int pageMargin = 20;
 int margin;
@@ -10,12 +10,24 @@ int numRows;
 int dotRadius = 20;
 Dot[] dots;
 
+int dragState;
+// -1 : not dragging (mouse not down)
+//  0 : erasing
+//  1 : painting
+
+
+int prevNearDot;
+
 
 void setup() {
   size(640, 480);
+  smooth();
+  frameRate(60);
   margin = 5;
   numCols = 8;
   numRows = 8;
+  dragState = -1;
+  prevNearDot = -1;
 
   dots = new Dot[numRows*numCols];
   for (int i=0;i<numRows*numCols;i++) {
@@ -30,42 +42,65 @@ void setup() {
 void draw() {
   update();
 
-background(255);
+  
   for (int i=0;i<numRows*numCols;i++) {
     dots[i].update();
   }
+background(255);
+  
 
- // pushMatrix();
- // translate(pageMargin, pageMargin);
+  // pushMatrix();
+  // translate(pageMargin, pageMargin);
   for (int i=0;i<numRows*numCols;i++) {
     dots[i].draw();
   }
- // popMatrix();
-  
+  // popMatrix();
+
   int nearDot = nearestDot();
-  if(nearDot>-1){
-   stroke(0);
+
+  if (nearDot>-1) {
+    stroke(128);
     noFill();
-  line(mouseX,mouseY,dots[nearDot].x,dots[nearDot].y);
+    line(mouseX, mouseY, dots[nearDot].x, dots[nearDot].y);
   }
 }
 
-void update(){
-  
+void update() {
+  int nearDot = nearestDot();
+  if (nearDot>-1 && dragState!=-1) {
+    if (dragState == 0) { 
+      dots[nearDot].isActive = false;
+    } 
+    else { 
+      dots[nearDot].isActive = true;
+    }
+    prevNearDot = nearDot;
+  }
 }
 
-int nearestDot(){
+void mousePressed() {
+  if (dots[nearestDot()].isActive) {
+    dragState = 0;
+  } 
+  else {
+    dragState = 1;
+  }
+}
+void mouseReleased() {
+  dragState = -1;
+}
+
+int nearestDot() {
   float nearestVal = 9999;
   int nearestDot = -1;
-    for (int i=0;i<numRows*numCols;i++) {
-   float thisDist = dist(mouseX,mouseY,dots[i].x,dots[i].y);
-   if(thisDist<nearestVal){
-     nearestDot = i;
-     nearestVal = thisDist;
-   }
+  for (int i=0;i<numRows*numCols;i++) {
+    float thisDist = dist(mouseX, mouseY, dots[i].x, dots[i].y);
+    if (thisDist<nearestVal) {
+      nearestDot = i;
+      nearestVal = thisDist;
+    }
   }
   return nearestDot;
-
 }
 
 class Dot {
@@ -77,12 +112,13 @@ class Dot {
   void update() {
   }
   void draw() {
-    if(isActive){
-          noStroke();
-    fill(0);
-    } else {
-stroke(0);
-fill(255);
+    if (isActive) {
+      noStroke();
+      fill(0);
+    } 
+    else {
+      stroke(0);
+      fill(255);
     }
     ellipse(x, y, r, r);
   }
