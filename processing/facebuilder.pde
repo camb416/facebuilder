@@ -115,7 +115,7 @@ void mousePressed() {
   else {
     dragState = 1;
   }
-  if(javascript!=null) javascript.logToConsole("hello, world!");
+  //if(javascript!=null) javascript.logToConsole("hello, world!");
 }
 void mouseReleased() {
   dragState = -1;
@@ -143,7 +143,11 @@ int nearestDot() {
 }
 
 void outputValues() {
-  int[] bytes = new int[numRows];
+  cpConsole(getChar());
+}
+
+String getChar(){
+    int[] bytes = new int[numRows];
 
   for (int i=0;i<numRows;i++) {
     bytes[i] = 0;
@@ -165,10 +169,10 @@ void outputValues() {
   for (int i=0;i<numRows;i++) {
     //output bytes here
     //println(bytes[i]);
-    bytes_str += bytes[i]+"\n";
+    bytes_str += hex(bytes[i], 2);
   }
-  cpConsole(bytes_str);
-
+  return bytes_str;
+  
 }
 
 class Dot {

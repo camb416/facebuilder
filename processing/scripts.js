@@ -14,10 +14,13 @@
 
 
 // from http://processingjs.org/articles/PomaxGuide.html
-function drawSomeText(id) {
+function saveChar(id) {
 	var pjs = Processing.getInstanceById(id);
 	var text = document.getElementById('inputtext').value;
-	pjs.drawText(text); 
+	var varName = document.getElementById('inputtext').value;
+	var data = pjs.getChar(); 
+
+	console.log(varName + " : "+data);
 }
 
 
