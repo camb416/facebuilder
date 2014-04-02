@@ -1,3 +1,4 @@
+/*
 var pjs;
 var canvasid = "sketch";
 var sourcedir = "";
@@ -24,6 +25,9 @@ function loadPJS() {
 	var canvas = document.getElementById(canvasid);
 	Processing.addInstance(new Processing(canvas, sourcecode));
 	pjs = Processing.getInstanceById(canvasid);
+
 	pjs.setJavaScript(this); }
 
 setTimeout("loadPJS()", 1000);
+*/
+

@@ -1,6 +1,6 @@
 
 /*
- * facebuilder v0.2
+ * facebuilder v0.3
  */
 
 // -------------------------------------------
@@ -10,22 +10,19 @@
 /**
  * this acts as a "header definition" for external javascript functions
  */
-interface JavaScript
-{	
-	void updateLog(String text);
-	//void setBorderThickness(float thickness);
+interface JavaScript {
+  void logToConsole(String msg);
 }
+
+void bindJavascript(JavaScript js) {
+  javascript = js;
+}
+
+JavaScript javascript;
 
 // -------------------------------------------
 //               MAIN SKETCH
 // -------------------------------------------
-
-// our javascript hook
-JavaScript javascript = null;
-void setJavaScript(JavaScript js) { javascript = js; }
-
-
-
 
 Dot e;
 int pageMargin = 20;
@@ -48,7 +45,8 @@ int prevNearDot;
 void setup() {
 
 
- // println(javascript);
+  
+  // println(javascript);
 
   size(240, 240);
   smooth();
@@ -70,7 +68,7 @@ void setup() {
   }
 }
 void draw() {
-  
+
   update();
 
 
@@ -117,6 +115,7 @@ void mousePressed() {
   else {
     dragState = 1;
   }
+  if(javascript!=null) javascript.logToConsole("hello, world!");
 }
 void mouseReleased() {
   dragState = -1;
@@ -128,7 +127,6 @@ void keyPressed() {
     outputValues();
     break;
   }
-  
 }
 
 int nearestDot() {
@@ -163,19 +161,14 @@ void outputValues() {
     // println(val);
   }
 
-String bytes_str = "";
+  String bytes_str = "";
   for (int i=0;i<numRows;i++) {
     //output bytes here
     //println(bytes[i]);
-  bytes_str += bytes[i]+"\n";  
-}
-  if(javascript!=null) {
-    bgcolor = 0;
-		javascript.updateLog(bytes_str);
-} else {
-  bgcolor = 128;
- println(bytes_str); 
-}
+    bytes_str += bytes[i]+"\n";
+  }
+  cpConsole(bytes_str);
+
 }
 
 class Dot {
@@ -213,5 +206,18 @@ class Dot {
   boolean getActive() {
     return isActive;
   }
+}
+
+// http://processingjs.org/articles/PomaxGuide.html
+void drawText(String t) {
+  background(#000033);
+  // get the width for the text
+  float twidth = textWidth(t);
+  // place the text centered on the drawing area
+  text(t, (width - twidth)/2, height/2);
+  stop();
+}
+void changeBgColor(int r, int g, int b) {
+  bgcolor = r;
 }
 
