@@ -20,6 +20,7 @@ int prevNearDot;
 
 
 void setup() {
+  println("setup");
   size(640, 480);
   smooth();
   frameRate(60);
@@ -42,12 +43,12 @@ void setup() {
 void draw() {
   update();
 
-  
+
   for (int i=0;i<numRows*numCols;i++) {
     dots[i].update();
   }
-background(255);
-  
+  background(255);
+
 
   // pushMatrix();
   // translate(pageMargin, pageMargin);
@@ -89,6 +90,15 @@ void mousePressed() {
 void mouseReleased() {
   dragState = -1;
 }
+void keyPressed() {
+  print(key);
+  switch(key) {
+  case 'p':
+  case 'P':
+    outputValues();
+    break;
+  }
+}
 
 int nearestDot() {
   float nearestVal = 9999;
@@ -101,6 +111,30 @@ int nearestDot() {
     }
   }
   return nearestDot;
+}
+
+void outputValues() {
+  int[] bytes = new int[numRows];
+  
+  for (int i=0;i<numRows;i++) {
+    bytes[i] = 0;
+    int val = 0;
+    for (int j=0;j<numCols;j++) {
+      if (dots[i*numCols+j].getActive()) {
+        //print("1");
+        bytes[i] += pow(2,j);
+      } 
+      else {
+      //  print("0");
+      }
+    }
+    //println("");
+   // println(val);
+  }
+  println("");
+  for(int i=0;i<numRows;i++){
+   println(bytes[i]); 
+  }
 }
 
 class Dot {
@@ -121,6 +155,9 @@ class Dot {
       fill(255);
     }
     ellipse(x, y, r, r);
+  }
+  boolean getActive() {
+    return isActive;
   }
 }
 
