@@ -1,6 +1,31 @@
+
 /*
- * facebuilder v0.1
+ * facebuilder v0.2
  */
+
+// -------------------------------------------
+//               JAVASCRIPT INTERFACE
+// -------------------------------------------
+
+/**
+ * this acts as a "header definition" for external javascript functions
+ */
+interface JavaScript
+{	
+	void updateLog(String text);
+	void setBorderThickness(float thickness);
+}
+
+// -------------------------------------------
+//               MAIN SKETCH
+// -------------------------------------------
+
+// our javascript hook
+JavaScript javascript = null;
+void setJavaScript(JavaScript js) { javascript = js; }
+
+
+
 
 Dot e;
 int pageMargin = 20;
@@ -20,7 +45,11 @@ int prevNearDot;
 
 
 void setup() {
-  println("setup");
+
+if(javascript!=null) {
+		javascript.updateLog("gone full circle"); }
+  
+  //println("setup");
   size(640, 480);
   smooth();
   frameRate(60);
@@ -82,7 +111,7 @@ void update() {
 void mousePressed() {
   if (dots[nearestDot()].isActive) {
     dragState = 0;
-    println("erasing");
+    //println("erasing");
   } 
   else {
     dragState = 1;
@@ -133,7 +162,8 @@ void outputValues() {
   }
 
   for (int i=0;i<numRows;i++) {
-    println(bytes[i]);
+    //output bytes here
+    //println(bytes[i]);
   }
 }
 
@@ -148,8 +178,9 @@ class Dot {
   void update() {
     if (isActive) {
       destBrightness = 1.0;
-    } else {
-     destBrightness = 0.0; 
+    } 
+    else {
+      destBrightness = 0.0;
     }
     curBrightness += (destBrightness-curBrightness)/16.0;
   }
@@ -166,7 +197,7 @@ class Dot {
     ellipse(x, y, r, r);
     noStroke();
     fill(0);
-    ellipse(x+0.5, y+0.5, (r)*curBrightness, (r)*curBrightness);
+    ellipse(x, y, (r)*curBrightness, (r)*curBrightness);
   }
   boolean getActive() {
     return isActive;
