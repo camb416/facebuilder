@@ -15,17 +15,32 @@
 
 // from http://processingjs.org/articles/PomaxGuide.html
 function saveChar(id) {
-	var pjs = Processing.getInstanceById(id);
+	pjs = Processing.getInstanceById(id);
 	var text = document.getElementById('inputtext').value;
 	var varName = document.getElementById('inputtext').value;
 	var data = pjs.getChar(); 
 
+	var data_str = "";
 	console.log(varName + " : "+data);
+
+	if(jsonData.length>1){
+		jsonData += ",\n"
+	}
+	jsonData += '"'+varName+'"'  + ' : "'+data+'"';
+		document.getElementById("outputarea").innerHTML = jsonHeader+jsonData+jsonFooter;
+	
+
 }
 
+function invertAll(){
+	pjs.invertAll();
+}
+function reset(){
+	pjs.setAll(false);
+}
 
 function changeBgColor(id) {
-	var pjs = Processing.getInstanceById(id);
+	pjs = Processing.getInstanceById(id);
 	var r = Math.random()*255;
 	var g = Math.random()*255;
 	var b = Math.random()*255;
@@ -36,15 +51,22 @@ function changeBgColor(id) {
 var bound = false;
 
 function bindJavascript(){
-	var pjs = Processing.getInstanceById('fbsketch');
+	pjs = Processing.getInstanceById('fbsketch');
 	if(pjs!=null){
 		pjs.bindJavascript(this);
 		bound = true;
 	}
 	if(!bound) setTimeout(bindJavascript, 250);
 }
+
+var jsonHeader = "{\n";
+var jsonFooter = "\n}";
+var jsonData = "";
+var pjs;
 bindJavascript();
 
 function logToConsole(msg){
 	console.log(msg);
+
 }
+

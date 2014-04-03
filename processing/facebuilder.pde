@@ -251,6 +251,8 @@ class Dot {
   }
 }
 
+
+
 // http://processingjs.org/articles/PomaxGuide.html
 void drawText(String t) {
   background(#000033);
