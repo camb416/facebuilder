@@ -4,7 +4,6 @@
 
 	<script src="processing-js/processing.js"></script>
 	<script type="text/javascript" src="scripts.js"></script>
-	<!-- <script type="text/javascript" src="loader.js"></script> -->
 
 	<style>
 		canvas {
@@ -32,7 +31,9 @@
 
 	</form>
 	<input type="textfield" value="my text" id="inputtext">
-	<button type="button" onclick="saveChar('fbsketch')">save character</button>
-	<button type="button" onclick="changeBgColor('fbsketch')">changebgcolor</button>
+	<button type="button" onclick="saveChar('fbsketch')">print character</button>
+	<button type="button" onclick="invert('fbsketch')">invert</button>
+	<button type="button" onclick="clear('fbsketch')">clear</button>
+	<div id="outputarea">output area</div>
 </body>
 </html>
